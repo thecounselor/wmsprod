@@ -1,0 +1,65 @@
+---
+import { SEO } from "astro-seo";
+import Navbar from "@/components/navbar/navbar.astro";
+import "@fontsource-variable/inter/index.css";
+import "@fontsource-variable/bricolage-grotesque";
+import "../styles/global.css";
+
+export interface Props {
+  title: string;
+}
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+
+const resolvedImageWithDomain = new URL(
+  "/opengraph.jpg",
+  Astro.site
+).toString();
+
+const { title } = Astro.props;
+
+const makeTitle = title
+  ? title + " | " + "WMS Discovery"
+  : "WMS Discovery - Intelligent Warehouse Management System";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <SEO
+      title={makeTitle}
+      description="WMS Discovery is an intelligent warehouse management system that streamlines operations with real-time tracking, automation, and analytics."
+      canonical={canonicalURL}
+      twitter={{
+        creator: "@wmsdiscovery",
+        site: "@wmsdiscovery",
+        card: "summary_large_image",
+      }}
+      openGraph={{
+        basic: {
+          url: canonicalURL,
+          type: "website",
+          title: `WMS Discovery - Intelligent Warehouse Management`,
+          image: resolvedImageWithDomain,
+        },
+        image: {
+          alt: "WMS Discovery - Warehouse Management System",
+        },
+      }}
+    />
+  </head>
+  <body>
+    <Navbar />
+    <slot />
+    <style is:global>
+      img {
+        content-visibility: auto;
+      }
+    </style>
+  </body>
+</html>

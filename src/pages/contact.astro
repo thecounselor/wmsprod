@@ -1,0 +1,139 @@
+---
+import Contactform from "@/components/contactform.astro";
+import Footer from "@/components/footer.astro";
+import Layout from "@/layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+---
+
+<style>
+  main {
+    min-height: 100dvh;
+    padding: 6rem 3rem 3rem;
+    padding-top: 100px;
+  }
+
+  .contact-container {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .header h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .header p {
+    font-size: 1.1rem;
+    color: var(--theme-surface-on-surface-variant);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+
+  .contact-info h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    color: var(--theme-surface-on-surface);
+  }
+
+  .contact-info p {
+    color: var(--theme-surface-on-surface-variant);
+    margin-bottom: 2rem;
+  }
+
+  .contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .contact-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .contact-item :global(svg) {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    color: var(--theme-surface-on-surface-variant);
+    margin-top: 2px;
+  }
+
+  .contact-item a {
+    color: var(--theme-surface-on-surface);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .contact-item a:hover {
+    color: var(--theme-surface-on-surface-variant);
+  }
+
+  .contact-item span {
+    color: var(--theme-surface-on-surface);
+  }
+
+  @media (max-width: 768px) {
+    main {
+      padding-top: 100px;
+    }
+
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>
+
+<Layout title="Contact Us">
+  <main>
+    <div class="contact-container">
+      <div class="header">
+        <h1>Get in Touch</h1>
+        <p>Have questions about WMS Discovery? We're here to help. Contact our team today.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h2>Contact Information</h2>
+          <p>Reach out to our support team for any inquiries or assistance.</p>
+
+          <div class="contact-details">
+            <div class="contact-item">
+              <Icon name="uil:map-marker" />
+              <span>Kuala Lumpur, Cyberjaya</span>
+            </div>
+            <div class="contact-item">
+              <Icon name="uil:envelope" />
+              <a href="mailto:krel@wms.my">krel@wms.my</a>
+            </div>
+            <div class="contact-item">
+              <Icon name="uil:phone" />
+              <a href="tel:0193388550">0193388550</a>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <Contactform />
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

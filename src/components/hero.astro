@@ -1,0 +1,331 @@
+---
+---
+
+<style>
+  :root {
+    overscroll-behavior-y: contain;
+    --ring-x: 50;
+    --ring-y: 50;
+    --ring-interactive: 0;
+  }
+
+  @property --ring-x {
+    syntax: '<number>';
+    inherits: false;
+    initial-value: 50;
+  }
+
+  @property --ring-y {
+    syntax: '<number>';
+    inherits: false;
+    initial-value: 50;
+  }
+
+  @property --ring-interactive {
+    syntax: '<number>';
+    inherits: false;
+    initial-value: 0;
+  }
+
+  section {
+    min-height: 70dvh;
+    display: grid;
+    place-content: center;
+    padding: 3rem;
+    padding-top: 80px;
+    background: var(--theme-surface-surface);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #welcome {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: --ring-x 3s ease,
+                --ring-y 3s ease;
+  }
+
+  .hero-content {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    z-index: 10;
+    position: relative;
+  }
+
+  h1 {
+    font-size: clamp(2.25rem, 7vw, 3.75rem);
+    font-weight: 600;
+    margin: 0 0 1.5rem 0;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    animation: slideInDown 0.8s ease-out forwards;
+    color: var(--theme-surface-on-surface);
+  }
+
+  .tagline {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    color: var(--theme-surface-on-surface-variant);
+    margin: 0 0 1.25rem 0;
+    font-weight: 400;
+    line-height: 1.6;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: slideInUp 0.8s ease-out 0.15s forwards;
+  }
+
+  .subtitle {
+    font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+    color: var(--theme-surface-on-surface-variant);
+    margin: 0 0 2.5rem 0;
+    font-weight: 400;
+    line-height: 1.7;
+    max-width: 780px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: slideInUp 0.8s ease-out 0.25s forwards;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1.25rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 0;
+    animation: fadeInScale 0.8s ease-out 0.35s forwards;
+  }
+
+  button {
+    font-size: 1rem;
+    padding: 0.85em 2.25em;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: all 0.2s ease-out;
+    border-radius: 8px;
+  }
+
+  button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  button:active {
+    transform: translateY(0);
+  }
+
+  /* Background blobs */
+  .bg-elements {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .gradient-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.08;
+    mix-blend-mode: screen;
+  }
+
+  .blob-1 {
+    width: 700px;
+    height: 700px;
+    background: linear-gradient(135deg, #3186FF 0%, #00B95C 100%);
+    top: -250px;
+    left: -250px;
+    animation: float 28s ease-in-out infinite;
+  }
+
+  .blob-2 {
+    width: 600px;
+    height: 600px;
+    background: linear-gradient(135deg, #FC413D 0%, #FBBC04 100%);
+    bottom: -200px;
+    right: -200px;
+    animation: float 32s ease-in-out infinite reverse;
+  }
+
+  .blob-3 {
+    width: 500px;
+    height: 500px;
+    background: linear-gradient(135deg, #3186FF 0%, #FC413D 100%);
+    top: 40%;
+    left: 5%;
+    animation: float 30s ease-in-out infinite;
+  }
+
+  /* Ring particles system */
+  .ring-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .ring-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #3186FF 0%, rgba(49, 134, 255, 0.3) 70%);
+    box-shadow: 0 0 10px rgba(49, 134, 255, 0.8);
+    pointer-events: none;
+  }
+
+  .particle-free {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #3186FF, transparent);
+    box-shadow: 0 0 8px rgba(49, 134, 255, 0.6);
+    pointer-events: none;
+  }
+
+  /* Animations */
+  @keyframes slideInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translate(0, 0);
+    }
+    33% {
+      transform: translate(30px, -30px);
+    }
+    66% {
+      transform: translate(-30px, 30px);
+    }
+  }
+
+  @keyframes expandRing {
+    from {
+      opacity: 1;
+      r: 0;
+    }
+    to {
+      opacity: 0;
+      r: 300px;
+    }
+  }
+
+  @keyframes particleFloat {
+    0% {
+      opacity: 1;
+      transform: translate(0, 0) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(var(--tx), var(--ty)) scale(0.2);
+    }
+  }
+
+  @media (max-width: 768px) {
+    section {
+      padding-top: 100px;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+    }
+
+    .tagline {
+      margin-bottom: 1rem;
+    }
+
+    .subtitle {
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+      gap: 0.875rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.875em 1.5em;
+    }
+
+    .blob-1 {
+      width: 400px;
+      height: 400px;
+      top: -150px;
+      left: -150px;
+    }
+
+    .blob-2 {
+      width: 350px;
+      height: 350px;
+      bottom: -100px;
+      right: -100px;
+    }
+
+    .blob-3 {
+      width: 300px;
+      height: 300px;
+      top: 40%;
+      left: 2%;
+    }
+  }
+</style>
+
+<section id="welcome">
+
+
+  <div class="hero-content">
+    <h1>Build Intelligent, Resilient Digital Enterprises</h1>
+    <p class="tagline">
+      Enterprise technology is no longer about systems. It is about control, intelligence and long-term competitiveness.
+    </p>
+    <div class="cta-buttons">
+      <button>Schedule a Consultation</button>
+      <button class="secondary">Explore Our Capabilities</button>
+    </div>
+  </div>
+</section>
+
+

@@ -1,0 +1,79 @@
+---
+---
+
+<style>
+  section {
+    background: linear-gradient(135deg, var(--theme-primary-primary) 0%, var(--palette-grey-900) 100%);
+    color: var(--theme-primary-on-primary);
+    min-height: auto;
+    padding: 4rem 3rem;
+    display: grid;
+    place-content: center;
+  }
+
+  .cta-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  h2 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 500;
+    color: var(--theme-primary-on-primary);
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2rem;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .cta-link {
+    display: inline-block;
+    font-size: 1.1rem;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    background: var(--theme-primary-on-primary);
+    color: var(--theme-primary-primary);
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+  }
+  .cta-link.secondary {
+    background: transparent;
+    color: #fff;
+    border: 2px solid #fff;
+  }
+  .cta-link:hover {
+    background: var(--theme-primary-primary);
+    color: var(--theme-primary-on-primary);
+  }
+  .cta-link.secondary:hover {
+    background: #fff;
+    color: var(--theme-primary-primary);
+  }
+</style>
+
+<section class="cta-section">
+  <div class="cta-content">
+    <h2>Ready to Architect Your Next Phase of Growth?</h2>
+    <p>
+      Build secure, scalable and intelligent digital ecosystems with confidence.
+    </p>
+    <div class="cta-buttons">
+      <a href="/contact" class="cta-link">Schedule a Consultation</a>
+      <a href="/about" class="cta-link secondary">Explore Our Capabilities</a>
+    </div>
+  </div>
+</section>
