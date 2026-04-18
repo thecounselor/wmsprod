@@ -1,0 +1,163 @@
+---
+// @ts-ignore
+import { Icon } from "astro-icon/components";
+
+const features = [
+  {
+    title: "Digital Transformation & IT Strategy",
+    description:
+      "We define structured transformation roadmaps aligned to business priorities. Enterprise digital operating models, governance and risk alignment, technology investment optimization, and modernization sequencing.",
+    icon: "bx:bxs-briefcase",
+  },
+  {
+    title: "Cloud & Infrastructure Engineering",
+    description:
+      "Resilient infrastructure designed for enterprise scale. Hybrid and multi-cloud architecture, cloud migration and optimization, high availability & disaster recovery, and infrastructure automation.",
+    icon: "bx:bxs-window-alt",
+  },
+  {
+    title: "Data & Artificial Intelligence Engineering",
+    description:
+      "From raw data to strategic intelligence. Enterprise data platforms, data governance architecture, real-time analytics pipelines, AI/ML implementation, and knowledge systems.",
+    icon: "bx:bxs-data",
+  },
+  {
+    title: "Enterprise Architecture & System Integration",
+    description:
+      "Unify systems and remove complexity. ERP/CRM integration, API-first architecture, microservices modernization, legacy transformation, and middleware frameworks.",
+    icon: "bx:bxs-bot",
+  },
+  {
+    title: "Cybersecurity, Governance & Compliance",
+    description:
+      "Security embedded at architectural level. RBAC implementation, Identity & Access Management, audit logging & traceability, risk assessment frameworks, and regulatory compliance alignment.",
+    icon: "bx:bxs-file-find",
+  },
+  {
+    title: "DevOps & Platform Engineering",
+    description:
+      "Accelerate innovation without sacrificing stability. CI/CD pipeline engineering, containerization & Kubernetes orchestration, Infrastructure as Code, observability & monitoring.",
+    icon: "bx:bxs-user",
+  },
+];
+---
+
+<style>
+  section {
+    padding: 4rem 3rem;
+  }
+
+  .features-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 4rem;
+  }
+
+  h2 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 350;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.1rem;
+    color: var(--theme-surface-on-surface-variant);
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .feature-card {
+    display: flex;
+    gap: 1rem;
+    padding: 2rem;
+    border-radius: 1rem;
+    background: var(--theme-surface-surface-container);
+    border: 1px solid var(--theme-outline-variant);
+    transition: all 0.3s ease;
+  }
+
+  .feature-card:hover {
+    border-color: var(--palette-grey-300);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  }
+
+  .icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: var(--theme-primary-primary);
+    color: var(--theme-primary-on-primary);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .icon-wrapper :global(svg) {
+    width: 24px;
+    height: 24px;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--theme-surface-on-surface);
+  }
+
+  .feature-card p {
+    font-size: 0.95rem;
+    color: var(--theme-surface-on-surface-variant);
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    section {
+      padding: 3rem 1rem;
+    }
+
+    .features-header {
+      margin: 0 auto 2rem;
+    }
+
+    .features-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .feature-card {
+      padding: 1.25rem;
+    }
+  }
+</style>
+
+<section id="features">
+  <div class="features-header">
+    <h2>Our Core Services</h2>
+    <p>
+      We combine strategic advisory discipline with deep engineering execution capability to build enduring digital foundations that drive competitive advantage.
+    </p>
+  </div>
+
+  <div class="features-grid">
+    {
+      features.map((item) => (
+        <div class="feature-card">
+          <div class="icon-wrapper">
+            <Icon name={item.icon} />
+          </div>
+          <div>
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>

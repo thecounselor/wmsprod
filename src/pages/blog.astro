@@ -1,0 +1,174 @@
+---
+import { getCollection } from "astro:content";
+import { Picture } from "astro:assets";
+import Layout from "@/layouts/Layout.astro";
+import Footer from "@/components/footer.astro";
+
+// Filter blog entries with 'draft: false' & date before current date
+const publishedBlogEntries = await getCollection("blog", ({ data }) => {
+  return !data.draft && data.publishDate < new Date();
+});
+
+// Sort content entries by publication date
+publishedBlogEntries.sort(function (a, b) {
+  return b.data.publishDate.valueOf() - a.data.publishDate.valueOf();
+});
+---
+
+<style>
+  main {
+    min-height: 100dvh;
+    padding: 6rem 3rem 3rem;
+    padding-top: 100px;
+  }
+
+  .blog-container {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .header h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .header p {
+    font-size: 1.1rem;
+    color: var(--theme-surface-on-surface-variant);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .blog-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin-bottom: 4rem;
+  }
+
+  .blog-item a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .blog-item-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .blog-image {
+    border-radius: 1rem;
+    overflow: hidden;
+    background: var(--theme-surface-surface-container);
+  }
+
+  .blog-image :global(img) {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .blog-meta {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--theme-surface-on-surface-variant);
+    margin-bottom: 1rem;
+  }
+
+  .blog-category {
+    color: var(--theme-primary-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+  }
+
+  .blog-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--theme-surface-on-surface);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+
+  .blog-item:hover .blog-title {
+    color: var(--theme-primary-primary);
+  }
+
+  @media (max-width: 768px) {
+    main {
+      padding-top: 100px;
+    }
+
+    .blog-item-content {
+      grid-template-columns: 1fr;
+    }
+
+    .blog-title {
+      font-size: 1.25rem;
+    }
+  }
+</style>
+
+<Layout title="Blog">
+  <main>
+    <div class="blog-container">
+      <div class="header">
+        <h1>Our Blog</h1>
+        <p>Insights, tips, and updates about warehouse management and supply chain optimization.</p>
+      </div>
+
+      <ul class="blog-list">
+        {
+          publishedBlogEntries.map((blogPostEntry, index) => (
+            <li class="blog-item">
+              <a href={`/blog/${blogPostEntry.slug}`}>
+                <div class="blog-item-content">
+                  <div class="blog-image">
+                    <Picture
+                      src={blogPostEntry.data.image.src}
+                      alt={blogPostEntry.data.image.alt}
+                      sizes="(max-width: 800px) 100vw, 500px"
+                      width={500}
+                      height={400}
+                      loading={index <= 2 ? "eager" : "lazy"}
+                      decoding={index <= 2 ? "sync" : "async"}
+                    />
+                  </div>
+                  <div>
+                    <div class="blog-meta">
+                      <span class="blog-category">{blogPostEntry.data.category}</span>
+                      <span>•</span>
+                      <time datetime={blogPostEntry.data.publishDate.toISOString()}>
+                        {blogPostEntry.data.publishDate.toDateString()}
+                      </time>
+                    </div>
+                    <h2 class="blog-title">{blogPostEntry.data.title}</h2>
+                    <p style={{ color: 'var(--theme-surface-on-surface-variant)' }}>
+                      {blogPostEntry.data.author}
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
